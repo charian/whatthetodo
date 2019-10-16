@@ -128,7 +128,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.heebeancreative.whatthetodo"
+        applicationId "com.whatthetodo"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

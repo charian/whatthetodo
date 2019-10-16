@@ -1,4 +1,4 @@
-package com.heebeancreative.whatthetodo;
+package com.whatthetodo;
 
 import android.app.Application;
 import android.content.Context;
