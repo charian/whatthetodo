@@ -11,6 +11,7 @@ import firebase from '@react-native-firebase/app';
 import '@react-native-firebase/auth';
 import {Button, InputItem} from '@ant-design/react-native';
 import styled from 'styled-components';
+import basicTheme from './theme/basic';
 
 export default class SignUp extends React.Component {
   state = {email: '', password: '', errorMessage: null};
@@ -53,9 +54,9 @@ export default class SignUp extends React.Component {
           onChangeText={password => this.setState({password})}
           value={this.state.password}
         />
-        <StyledBtn onPress={this.handleSignUp} title="Sign Up">
-          <StyledText>Sign Up</StyledText>
-        </StyledBtn>
+        {/* <basicTheme.StyledBtn onPress={this.handleSignUp} title="Sign Up">
+          <basicTheme.StyledText>Sign Up</basicTheme.StyledText>
+        </basicTheme.StyledBtn> */}
         <Button
           onPress={() => this.props.navigation.navigate('Login')}
           type="primary">
@@ -66,16 +67,6 @@ export default class SignUp extends React.Component {
   }
 }
 
-const StyledBtn = styled.TouchableHighlight`
-  font-weight: bold;
-  border-radius: 50px;
-  background-color: palevioletred;
-  padding: 10px 20px;
-`;
-const StyledText = styled.Text`
-  font-size: 50px;
-  color: #fff;
-`;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
