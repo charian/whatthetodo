@@ -22,25 +22,11 @@ import RNIap, {
 
 const itemSkus = Platform.select({
   ios: ['wtd_monthly', 'wtd_yearly'],
-  android: [
-    'wtd_monthly',
-    'wtd_yearly',
-    'android.test.purchased',
-    'android.test.canceled',
-    'android.test.refunded',
-    'android.test.item_unavailable',
-  ],
+  android: ['wtd_monthly', 'wtd_yearly'],
 });
 const itemSubs = Platform.select({
   ios: ['wtd_monthly', 'wtd_yearly'],
-  android: [
-    'wtd_monthly',
-    'wtd_yearly',
-    'android.test.purchased',
-    'android.test.canceled',
-    'android.test.refunded',
-    'android.test.item_unavailable',
-  ],
+  android: ['wtd_monthly', 'wtd_yearly'],
 });
 let purchaseUpdateSubscription;
 let purchaseErrorSubscription;
@@ -103,8 +89,8 @@ export default class Main extends React.Component {
   };
 
   componentWillUnmount = () => {
-    this.notificationListener();
-    this.notificationOpenedListener();
+    // this.notificationListener();
+    // this.notificationOpenedListener();
     if (purchaseUpdateSubscription) {
       purchaseUpdateSubscription.remove();
       purchaseUpdateSubscription = null;
@@ -157,35 +143,35 @@ export default class Main extends React.Component {
     }
   };
 
-  messageListener = async () => {
-    this.notificationListener = firebase
-      .notifications()
-      .onNotification(notification => {
-        const {title, body} = notification;
-        this.showAlert(title, body);
-      });
+  // messageListener = async () => {
+  //   this.notificationListener = firebase
+  //     .notifications()
+  //     .onNotification(notification => {
+  //       const {title, body} = notification;
+  //       this.showAlert(title, body);
+  //     });
 
-    this.notificationOpenedListener = firebase
-      .notifications()
-      .onNotificationOpened(notificationOpen => {
-        console.log(notificationOpen);
-        const {title, body} = notificationOpen.notification;
-        this.showAlert(title, body);
-      });
+  //   this.notificationOpenedListener = firebase
+  //     .notifications()
+  //     .onNotificationOpened(notificationOpen => {
+  //       console.log(notificationOpen);
+  //       const {title, body} = notificationOpen.notification;
+  //       this.showAlert(title, body);
+  //     });
 
-    const notificationOpen = await firebase
-      .notifications()
-      .getInitialNotification();
-    if (notificationOpen) {
-      const {title, body} = notificationOpen.notification;
-      console.log(notificationOpen);
-      this.showAlert(title, body);
-    }
+  //   const notificationOpen = await firebase
+  //     .notifications()
+  //     .getInitialNotification();
+  //   if (notificationOpen) {
+  //     const {title, body} = notificationOpen.notification;
+  //     console.log(notificationOpen);
+  //     this.showAlert(title, body);
+  //   }
 
-    this.messageListener = firebase.messaging().onMessage(message => {
-      console.log(JSON.stringify(message));
-    });
-  };
+  //   this.messageListener = firebase.messaging().onMessage(message => {
+  //     console.log(JSON.stringify(message));
+  //   });
+  // };
 
   showAlert = (title, message) => {
     Alert.alert(
@@ -313,6 +299,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   subContainer: {
-    height: 100,
+    height: 300,
   },
 });

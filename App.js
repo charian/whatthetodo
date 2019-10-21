@@ -37,6 +37,7 @@ const App = createAnimatedSwitchNavigator(
   },
 );
 const AppContainer = createAppContainer(App);
+
 <AppContainer
   ref={nav => {
     this.navigator = nav;

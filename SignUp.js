@@ -10,9 +10,14 @@ import {
 import firebase from '@react-native-firebase/app';
 import '@react-native-firebase/auth';
 import {Button, InputItem} from '@ant-design/react-native';
-import styled from 'styled-components';
+import styled, {ThemeProvider} from 'styled-components';
 import basicTheme from './theme/basic';
 
+const StyledBtn = styled.TouchableHighlight``;
+const StyledText = styled.Text`
+  color: ${props => props.theme.successColor};
+`;
+console.log(styled.props);
 export default class SignUp extends React.Component {
   state = {email: '', password: '', errorMessage: null};
   handleSignUp = () => {
@@ -26,43 +31,46 @@ export default class SignUp extends React.Component {
   };
 
   render() {
+    console.log(this.props.theme);
     return (
-      <View style={styles.container}>
-        <StyledText>Sign Up</StyledText>
-        {this.state.errorMessage && (
-          <Text style={{color: 'red'}}>{this.state.errorMessage}</Text>
-        )}
-        <InputItem
-          clear
-          value={this.state.email}
-          onChange={email => this.setState({email})}
-          placeholder="Input Login Email"
-          type="email"
-        />
-        {/* <TextInput
+      <ThemeProvider theme={basicTheme}>
+        <View style={styles.container}>
+          <Text>Sign Up</Text>
+          {this.state.errorMessage && (
+            <Text style={{color: 'red'}}>{this.state.errorMessage}</Text>
+          )}
+          <InputItem
+            clear
+            value={this.state.email}
+            onChange={email => this.setState({email})}
+            placeholder="Input Login Email"
+            type="email"
+          />
+          {/* <TextInput
           placeholder="Email"
           autoCapitalize="none"
           style={styles.textInput}
           onChangeText={email => this.setState({email})}
           value={this.state.email}
         /> */}
-        <TextInput
-          secureTextEntry
-          placeholder="Password"
-          autoCapitalize="none"
-          style={styles.textInput}
-          onChangeText={password => this.setState({password})}
-          value={this.state.password}
-        />
-        {/* <basicTheme.StyledBtn onPress={this.handleSignUp} title="Sign Up">
-          <basicTheme.StyledText>Sign Up</basicTheme.StyledText>
-        </basicTheme.StyledBtn> */}
-        <Button
-          onPress={() => this.props.navigation.navigate('Login')}
-          type="primary">
-          Already have an account? Login
-        </Button>
-      </View>
+          <TextInput
+            secureTextEntry
+            placeholder="Password"
+            autoCapitalize="none"
+            style={styles.textInput}
+            onChangeText={password => this.setState({password})}
+            value={this.state.password}
+          />
+          <StyledBtn onPress={this.handleSignUp} title="Sign Up">
+            <StyledText>Sign Up</StyledText>
+          </StyledBtn>
+          <Button
+            onPress={() => this.props.navigation.navigate('Login')}
+            type="primary">
+            Already have an account? Login
+          </Button>
+        </View>
+      </ThemeProvider>
     );
   }
 }

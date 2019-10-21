@@ -1,14 +1,7 @@
-// import original module declarations
-import 'styled-components'
+const theme = {
+  mainColor: '#3498db',
+  dangerColor: '#e74c3c',
+  successColor: '#2ecc71',
+};
 
-// and extend them!
-declare module 'styled-components' {
-  export interface DefaultTheme {
-    borderRadius: string
-
-    colors: {
-      main: string
-      secondary: string
-    }
-  }
-}
+export default theme;
