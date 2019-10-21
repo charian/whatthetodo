@@ -9,6 +9,7 @@ import {
   Platform,
 } from 'react-native';
 import firebase from '@react-native-firebase/app';
+import '@react-native-firebase/auth';
 import {AccessToken, LoginManager, LoginButton} from 'react-native-fbsdk';
 
 // bundle com.heebeancreative.whatthetodo

@@ -19,7 +19,7 @@ import {
 import Loading from './Loading';
 import SignUp from './SignUp';
 import Login from './Login';
-// import Main from './Main';
+import Main from './Main';
 
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
@@ -30,7 +30,7 @@ const App = createAnimatedSwitchNavigator(
     Loading: {screen: Loading},
     SignUp: {screen: SignUp},
     Login: {screen: Login},
-    // Main: {screen: Main},
+    Main: {screen: Main},
   },
   {
     initialRouteName: 'Loading',
