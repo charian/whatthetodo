@@ -11,7 +11,8 @@ import firebase from '@react-native-firebase/app';
 import '@react-native-firebase/auth';
 import {Button, InputItem} from '@ant-design/react-native';
 import styled, {ThemeProvider} from 'styled-components';
-import basicTheme from './theme/basic';
+import basic from './theme/basic';
+import light from './theme/light';
 
 const StyledBtn = styled.TouchableHighlight``;
 const StyledText = styled.Text`
@@ -33,7 +34,7 @@ export default class SignUp extends React.Component {
   render() {
     console.log(this.props.theme);
     return (
-      <ThemeProvider theme={basicTheme}>
+      <ThemeProvider theme={basic}>
         <View style={styles.container}>
           <Text>Sign Up</Text>
           {this.state.errorMessage && (
