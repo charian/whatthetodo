@@ -14,7 +14,9 @@ import styled, {ThemeProvider} from 'styled-components';
 import basic from './theme/basic';
 import light from './theme/light';
 
-const StyledBtn = styled.TouchableHighlight``;
+const StyledBtn = styled.TouchableHighlight`
+  background-color: ${props => props.theme.dangerColor};
+`;
 const StyledText = styled.Text`
   color: ${props => props.theme.successColor};
 `;
@@ -32,45 +34,46 @@ export default class SignUp extends React.Component {
   };
 
   render() {
-    console.log(this.props.theme);
     return (
       <ThemeProvider theme={basic}>
-        <View style={styles.container}>
-          <Text>Sign Up</Text>
-          {this.state.errorMessage && (
-            <Text style={{color: 'red'}}>{this.state.errorMessage}</Text>
-          )}
-          <InputItem
-            clear
-            value={this.state.email}
-            onChange={email => this.setState({email})}
-            placeholder="Input Login Email"
-            type="email"
-          />
-          {/* <TextInput
+        <ThemeProvider theme={light}>
+          <View style={styles.container}>
+            <Text>Sign Up</Text>
+            {this.state.errorMessage && (
+              <Text style={{color: 'red'}}>{this.state.errorMessage}</Text>
+            )}
+            <InputItem
+              clear
+              value={this.state.email}
+              onChange={email => this.setState({email})}
+              placeholder="Input Login Email"
+              type="email"
+            />
+            {/* <TextInput
           placeholder="Email"
           autoCapitalize="none"
           style={styles.textInput}
           onChangeText={email => this.setState({email})}
           value={this.state.email}
         /> */}
-          <TextInput
-            secureTextEntry
-            placeholder="Password"
-            autoCapitalize="none"
-            style={styles.textInput}
-            onChangeText={password => this.setState({password})}
-            value={this.state.password}
-          />
-          <StyledBtn onPress={this.handleSignUp} title="Sign Up">
-            <StyledText>Sign Up</StyledText>
-          </StyledBtn>
-          <Button
-            onPress={() => this.props.navigation.navigate('Login')}
-            type="primary">
-            Already have an account? Login
-          </Button>
-        </View>
+            <TextInput
+              secureTextEntry
+              placeholder="Password"
+              autoCapitalize="none"
+              style={styles.textInput}
+              onChangeText={password => this.setState({password})}
+              value={this.state.password}
+            />
+            <StyledBtn onPress={this.handleSignUp} title="Sign Up">
+              <StyledText>Sign Up</StyledText>
+            </StyledBtn>
+            <Button
+              onPress={() => this.props.navigation.navigate('Login')}
+              type="primary">
+              Already have an account? Login
+            </Button>
+          </View>
+        </ThemeProvider>
       </ThemeProvider>
     );
   }
