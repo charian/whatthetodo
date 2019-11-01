@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import firebase from '@react-native-firebase/app';
 import '@react-native-firebase/auth';
+import '@react-native-firebase/analytics';
 import RNIap, {
   Product,
   ProductPurchase,
@@ -107,7 +108,7 @@ export default class Main extends React.Component {
       .signOut()
       .then(() =>
         this.props.navigation.navigate(
-          'Login'.catch(error => this.setState({errorMessage: error.message})),
+          'Login'.catch(error => console.log(error.message)),
         ),
       );
   };
@@ -263,6 +264,7 @@ export default class Main extends React.Component {
 
   render() {
     const {currentUser, productList} = this.state;
+    firebase.analytics().setCurrentScreen('screen-categoryView');
     return (
       <SafeAreaView style={styles.container}>
         <Text>Hi {currentUser && currentUser.email}!</Text>

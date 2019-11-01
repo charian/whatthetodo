@@ -319,10 +319,14 @@ PODS:
     - React-cxxreact (= 0.61.2)
     - React-jsi (= 0.61.2)
     - ReactCommon/jscallinvoker (= 0.61.2)
-  - RNFBApp (6.0.1):
+  - RNFBAnalytics (6.0.3):
     - Firebase/Core (~> 6.8.1)
     - React
-  - RNFBAuth (6.0.1):
+    - RNFBApp
+  - RNFBApp (6.0.3):
+    - Firebase/Core (~> 6.8.1)
+    - React
+  - RNFBAuth (6.0.3):
     - Firebase/Auth (~> 6.8.1)
     - Firebase/Core (~> 6.8.1)
     - React
@@ -366,6 +370,7 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - ReactCommon/jscallinvoker (from `../node_modules/react-native/ReactCommon`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - "RNFBAnalytics (from `../node_modules/@react-native-firebase/analytics`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
@@ -446,6 +451,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/Vibration"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNFBAnalytics:
+    :path: "../node_modules/@react-native-firebase/analytics"
   RNFBApp:
     :path: "../node_modules/@react-native-firebase/app"
   RNFBAuth:
@@ -505,14 +512,15 @@ SPEC CHECKSUMS:
   React-RCTText: e3ef6191cdb627855ff7fe8fa0c1e14094967fb8
   React-RCTVibration: fb54c732fd20405a76598e431aa2f8c2bf527de9
   ReactCommon: 5848032ed2f274fcb40f6b9ec24067787c42d479
-  RNFBApp: 5dd12fdb688ddd25aa756d8cd2780abaadf15709
-  RNFBAuth: 7011c2d87c84bac55b5feb414cf1b0b92169f4b9
+  RNFBAnalytics: d75433ac464f0ac6e5bd1ae7015cb5fb6427e80a
+  RNFBApp: 92ae594c85e82e1e68434049b2a37e1f584cf8b9
+  RNFBAuth: edc2e5986b92f0dfd0076b312caf7871a1646ed8
   RNGestureHandler: 4cb47a93019c1a201df2644413a0a1569a51c8aa
-  RNIap: c54d03f31fe74b1f753580c8111a6394948a7b9e
+  RNIap: e69a540ba7f33737a6ebfba4007ba4e2cfc47148
   RNReanimated: 6abbbae2e5e72609d85aabd92a982a94566885f1
   RNScreens: f28b48b8345f2f5f39ed6195518291515032a788
   Yoga: 14927e37bd25376d216b150ab2a561773d57911f
 
 PODFILE CHECKSUM: 4a7118ef30cdec97f0dee12ad4d702e388e1e964
 
-COCOAPODS: 1.8.0
+COCOAPODS: 1.8.3

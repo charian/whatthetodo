@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import firebase from '@react-native-firebase/app';
 import '@react-native-firebase/auth';
+import analytics from '@react-native-firebase/analytics';
 import {Button, InputItem} from '@ant-design/react-native';
 import styled, {ThemeProvider} from 'styled-components';
 import basic from './theme/basic';
@@ -20,7 +21,7 @@ const StyledBtn = styled.TouchableHighlight`
 const StyledText = styled.Text`
   color: ${props => props.theme.successColor};
 `;
-console.log(styled.props);
+
 export default class SignUp extends React.Component {
   state = {email: '', password: '', errorMessage: null};
   handleSignUp = () => {
@@ -32,6 +33,14 @@ export default class SignUp extends React.Component {
     //   .catch(error => this.setState({errorMessage: error.message}));
     //console.log('handleSignUp' + this.state.email + this.state.password);
   };
+  componentDidMount = () => {
+    this.trackScreenView;
+  };
+
+  async trackScreenView() {
+    // Set & override the MainActivity screen name
+    await analytics().setCurrentScreen('screen-signup');
+  }
 
   render() {
     return (

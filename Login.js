@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import firebase from '@react-native-firebase/app';
 import '@react-native-firebase/auth';
+import analytics from '@react-native-firebase/analytics';
 import {AccessToken, LoginManager, LoginButton} from 'react-native-fbsdk';
 
 // bundle com.heebeancreative.whatthetodo
@@ -96,6 +97,7 @@ export default class Login extends React.Component {
   };
 
   render() {
+    analytics().setCurrentScreen('screen-login');
     return (
       <View style={styles.container}>
         <Text>Login</Text>
