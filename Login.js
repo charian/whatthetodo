@@ -30,6 +30,7 @@ export default class Login extends React.Component {
     };
   }
   componentDidMount = async () => {
+    console.log('login page');
     // try {
     //   const products = await RNIap.getProducts(itemSkus);
     //   this.setState({productList: products});
@@ -97,7 +98,6 @@ export default class Login extends React.Component {
   };
 
   render() {
-    analytics().setCurrentScreen('screen-login');
     return (
       <View style={styles.container}>
         <Text>Login</Text>

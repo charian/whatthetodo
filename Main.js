@@ -44,6 +44,7 @@ export default class Main extends React.Component {
   }
 
   componentDidMount = async (): void => {
+    console.log('main page');
     const {currentUser} = firebase.auth();
     this.setState({currentUser});
     this.checkPermission();
@@ -264,7 +265,7 @@ export default class Main extends React.Component {
 
   render() {
     const {currentUser, productList} = this.state;
-    firebase.analytics().setCurrentScreen('screen-categoryView');
+
     return (
       <SafeAreaView style={styles.container}>
         <Text>Hi {currentUser && currentUser.email}!</Text>

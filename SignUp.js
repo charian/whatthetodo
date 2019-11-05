@@ -6,11 +6,13 @@ import {
   TextInput,
   View,
   TouchableHighlight,
+  Button,
 } from 'react-native';
+
 import firebase from '@react-native-firebase/app';
-import '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth';
 import analytics from '@react-native-firebase/analytics';
-import {Button, InputItem} from '@ant-design/react-native';
+
 import styled, {ThemeProvider} from 'styled-components';
 import basic from './theme/basic';
 import light from './theme/light';
@@ -24,23 +26,38 @@ const StyledText = styled.Text`
 
 export default class SignUp extends React.Component {
   state = {email: '', password: '', errorMessage: null};
-  handleSignUp = () => {
-    // TODO: Firebase stuff...
-    // firebase
-    //   .auth()
-    //   .createUserWithEmailAndPassword(this.state.email, this.state.password)
-    //   .then(() => this.props.navigation.navigate('Main'))
-    //   .catch(error => this.setState({errorMessage: error.message}));
-    //console.log('handleSignUp' + this.state.email + this.state.password);
-  };
-  componentDidMount = () => {
-    this.trackScreenView;
+  //   handleSignUp = () => {
+
+  //     firebase
+  //       .auth()
+  //       .createUserWithEmailAndPassword(this.state.email, this.state.password)
+  //       .then(() => this.props.navigation.navigate('Main'))
+  //       .catch(error => console.log({error}));
+  //     console.log('handleSignUp' + this.state.email + this.state.password);
+  //   };
+
+  register = async () => {
+    try {
+      await auth()
+        .createUserWithEmailAndPassword(this.state.email, this.state.password)
+        .then(() => this.props.navigation.navigate('Main'));
+    } catch (e) {
+      console.warn(e.message.replace(/ *\[[^)]*\] */g, ''));
+      this.setState({
+        errorMessage: e.message.replace(/ *\[[^)]*\] */g, ''),
+      });
+      //   console.error(e.message);
+      return;
+    } finally {
+      console.log('finally');
+      return;
+    }
   };
 
-  async trackScreenView() {
-    // Set & override the MainActivity screen name
+  componentDidMount = async () => {
+    console.log('signup page');
     await analytics().setCurrentScreen('screen-signup');
-  }
+  };
 
   render() {
     return (
@@ -51,36 +68,35 @@ export default class SignUp extends React.Component {
             {this.state.errorMessage && (
               <Text style={{color: 'red'}}>{this.state.errorMessage}</Text>
             )}
-            <InputItem
-              clear
+            <TextInput
               value={this.state.email}
-              onChange={email => this.setState({email})}
+              style={styles.textInput}
+              onChangeText={email =>
+                this.setState({email}, console.log(this.state.email))
+              }
               placeholder="Input Login Email"
               type="email"
             />
-            {/* <TextInput
-          placeholder="Email"
-          autoCapitalize="none"
-          style={styles.textInput}
-          onChangeText={email => this.setState({email})}
-          value={this.state.email}
-        /> */}
             <TextInput
               secureTextEntry
               placeholder="Password"
               autoCapitalize="none"
               style={styles.textInput}
-              onChangeText={password => this.setState({password})}
+              onChangeText={password =>
+                this.setState({password}, console.log(this.state.password))
+              }
               value={this.state.password}
             />
-            <StyledBtn onPress={this.handleSignUp} title="Sign Up">
+
+            <StyledBtn onPress={this.register} title="Sign Up">
               <StyledText>Sign Up</StyledText>
             </StyledBtn>
-            <Button
+
+            <StyledBtn
               onPress={() => this.props.navigation.navigate('Login')}
               type="primary">
-              Already have an account? Login
-            </Button>
+              <StyledText>Already have an account? Login</StyledText>
+            </StyledBtn>
           </View>
         </ThemeProvider>
       </ThemeProvider>
