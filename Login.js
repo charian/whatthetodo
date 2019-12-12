@@ -11,8 +11,25 @@ import {
 import firebase from '@react-native-firebase/app';
 import '@react-native-firebase/auth';
 import analytics from '@react-native-firebase/analytics';
+import amplitude from 'amplitude-js';
 import {AccessToken, LoginManager, LoginButton} from 'react-native-fbsdk';
+import styled, {ThemeProvider} from 'styled-components';
+import basic from './theme/basic';
+import light from './theme/light';
 
+const StyledBtn = styled.TouchableHighlight`
+  background-color: ${props => props.theme.btnDark};
+  padding: 10px;
+  border-radius: 20px;
+  display: flex;
+  width: 100%;
+  color: #fff;
+`;
+const StyledText = styled.Text`
+  color: ${props => props.theme.color};
+  align-self: center;
+`;
+amplitude.getInstance().init('fce09f2307caa48fe7625001887970e9');
 // bundle com.heebeancreative.whatthetodo
 // sku WTD
 
@@ -31,6 +48,7 @@ export default class Login extends React.Component {
   }
   componentDidMount = async () => {
     console.log('login page');
+    await analytics().setCurrentScreen('screen-login', 'screen-login');
     // try {
     //   const products = await RNIap.getProducts(itemSkus);
     //   this.setState({productList: products});
@@ -39,6 +57,7 @@ export default class Login extends React.Component {
     //   console.warn(err); // standardized err.code and err.message available
     // }
   };
+
   loginWithFacebook = async () => {
     try {
       const result = await LoginManager.logInWithPermissions([
@@ -49,9 +68,16 @@ export default class Login extends React.Component {
       if (result.isCancelled) {
         // handle this however suites the flow of your app
         //throw new Error('User cancelled request');
+        await firebase
+          .analytics()
+          .logEvent('login_cancell', {method: 'facebook'});
         alert('Login was cancelled');
         //console.log('user has cancelled' + result.isCancelled);
       } else if (result.isCancelled === false) {
+        await firebase.analytics().logLogin({
+          method: 'facebook',
+        });
+        amplitude.getInstance().logEvent('login');
         console.log(
           `Login success with permissions: ${result.grantedPermissions.toString()}`,
         );
@@ -98,35 +124,44 @@ export default class Login extends React.Component {
   };
 
   render() {
+    console.log(this);
     return (
-      <View style={styles.container}>
-        <Text>Login</Text>
-        {this.state.errorMessage && (
-          <Text style={{color: 'red'}}>{this.state.errorMessage}</Text>
-        )}
-        <TextInput
-          style={styles.textInput}
-          autoCapitalize="none"
-          placeholder="Email"
-          onChangeText={email => this.setState({email})}
-          value={this.state.email}
-        />
-        <TextInput
-          secureTextEntry
-          style={styles.textInput}
-          autoCapitalize="none"
-          placeholder="Password"
-          onChangeText={password => this.setState({password})}
-          value={this.state.password}
-        />
-        <Button title="Login" onPress={this.handleLogin} />
-        <Button title="Login with facebook" onPress={this.loginWithFacebook} />
+      <ThemeProvider theme={basic}>
+        <ThemeProvider theme={light}>
+          <View style={styles.container}>
+            <Text>Login</Text>
+            {this.state.errorMessage && (
+              <Text style={{color: 'red'}}>{this.state.errorMessage}</Text>
+            )}
+            <TextInput
+              autoCapitalize="none"
+              placeholder="Email"
+              onChangeText={email => this.setState({email})}
+              value={this.state.email}
+            />
+            <TextInput
+              secureTextEntry
+              autoCapitalize="none"
+              placeholder="Password"
+              onChangeText={password => this.setState({password})}
+              value={this.state.password}
+            />
+            <StyledBtn onPress={this.handleLogin} title="Login">
+              <StyledText>Login</StyledText>
+            </StyledBtn>
+            {/* <Button title="Login" onPress={this.handleLogin} /> */}
+            <Button
+              title="Login with facebook"
+              onPress={this.loginWithFacebook}
+            />
 
-        <Button
-          title="Don't have an account? Sign Up"
-          onPress={() => this.props.navigation.navigate('SignUp')}
-        />
-      </View>
+            <Button
+              title="Don't have an account? Sign Up"
+              onPress={() => this.props.navigation.navigate('SignUp')}
+            />
+          </View>
+        </ThemeProvider>
+      </ThemeProvider>
     );
   }
 }
@@ -135,12 +170,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  textInput: {
-    height: 40,
-    width: '90%',
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginTop: 8,
+    padding: 20,
   },
 });

@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import firebase from '@react-native-firebase/app';
 import '@react-native-firebase/auth';
-import '@react-native-firebase/analytics';
+import analytics from '@react-native-firebase/analytics';
 import RNIap, {
   Product,
   ProductPurchase,
@@ -45,6 +45,7 @@ export default class Main extends React.Component {
 
   componentDidMount = async (): void => {
     console.log('main page');
+    await analytics().setCurrentScreen('screen-main', 'screen-main');
     const {currentUser} = firebase.auth();
     this.setState({currentUser});
     this.checkPermission();
@@ -91,27 +92,23 @@ export default class Main extends React.Component {
   };
 
   componentWillUnmount = () => {
-    this.notificationListener();
-    this.notificationOpenedListener();
-    if (purchaseUpdateSubscription) {
-      purchaseUpdateSubscription.remove();
-      purchaseUpdateSubscription = null;
-    }
-    if (purchaseErrorSubscription) {
-      purchaseErrorSubscription.remove();
-      purchaseErrorSubscription = null;
-    }
+    // this.notificationListener();
+    // this.notificationOpenedListener();
+    // if (purchaseUpdateSubscription) {
+    //   purchaseUpdateSubscription.remove();
+    //   purchaseUpdateSubscription = null;
+    // }
+    // if (purchaseErrorSubscription) {
+    //   purchaseErrorSubscription.remove();
+    //   purchaseErrorSubscription = null;
+    // }
   };
 
   logOut = () => {
     firebase
       .auth()
       .signOut()
-      .then(() =>
-        this.props.navigation.navigate(
-          'Login'.catch(error => console.log(error.message)),
-        ),
-      );
+      .then(() => this.props.navigation.navigate('Login'));
   };
 
   checkPermission = async () => {

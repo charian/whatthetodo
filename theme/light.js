@@ -1,5 +1,5 @@
 const light = {
-  dangerColor: '#e74c3c',
+  color: '#fff',
 };
 
 export default light;

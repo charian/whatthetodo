@@ -13,17 +13,6 @@ import firebase from '@react-native-firebase/app';
 import auth from '@react-native-firebase/auth';
 import analytics from '@react-native-firebase/analytics';
 
-import styled, {ThemeProvider} from 'styled-components';
-import basic from './theme/basic';
-import light from './theme/light';
-
-const StyledBtn = styled.TouchableHighlight`
-  background-color: ${props => props.theme.dangerColor};
-`;
-const StyledText = styled.Text`
-  color: ${props => props.theme.successColor};
-`;
-
 export default class SignUp extends React.Component {
   state = {email: '', password: '', errorMessage: null};
   //   handleSignUp = () => {
@@ -56,50 +45,46 @@ export default class SignUp extends React.Component {
 
   componentDidMount = async () => {
     console.log('signup page');
-    await analytics().setCurrentScreen('screen-signup');
+    await analytics().setCurrentScreen('screen-signup', 'screen-signup');
   };
 
   render() {
     return (
-      <ThemeProvider theme={basic}>
-        <ThemeProvider theme={light}>
-          <View style={styles.container}>
-            <Text>Sign Up</Text>
-            {this.state.errorMessage && (
-              <Text style={{color: 'red'}}>{this.state.errorMessage}</Text>
-            )}
-            <TextInput
-              value={this.state.email}
-              style={styles.textInput}
-              onChangeText={email =>
-                this.setState({email}, console.log(this.state.email))
-              }
-              placeholder="Input Login Email"
-              type="email"
-            />
-            <TextInput
-              secureTextEntry
-              placeholder="Password"
-              autoCapitalize="none"
-              style={styles.textInput}
-              onChangeText={password =>
-                this.setState({password}, console.log(this.state.password))
-              }
-              value={this.state.password}
-            />
+      <View style={styles.container}>
+        <Text>Sign Up</Text>
+        {this.state.errorMessage && (
+          <Text style={{color: 'red'}}>{this.state.errorMessage}</Text>
+        )}
+        <TextInput
+          value={this.state.email}
+          style={styles.textInput}
+          onChangeText={email =>
+            this.setState({email}, console.log(this.state.email))
+          }
+          placeholder="Input Login Email"
+          type="email"
+        />
+        <TextInput
+          secureTextEntry
+          placeholder="Password"
+          autoCapitalize="none"
+          style={styles.textInput}
+          onChangeText={password =>
+            this.setState({password}, console.log(this.state.password))
+          }
+          value={this.state.password}
+        />
 
-            <StyledBtn onPress={this.register} title="Sign Up">
-              <StyledText>Sign Up</StyledText>
-            </StyledBtn>
+        <StyledBtn onPress={this.register} title="Sign Up">
+          <StyledText>Sign Up</StyledText>
+        </StyledBtn>
 
-            <StyledBtn
-              onPress={() => this.props.navigation.navigate('Login')}
-              type="primary">
-              <StyledText>Already have an account? Login</StyledText>
-            </StyledBtn>
-          </View>
-        </ThemeProvider>
-      </ThemeProvider>
+        <StyledBtn
+          onPress={() => this.props.navigation.navigate('Login')}
+          type="primary">
+          <StyledText>Already have an account? Login</StyledText>
+        </StyledBtn>
+      </View>
     );
   }
 }
