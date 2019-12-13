@@ -1,13 +1,6 @@
 // Login.js
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  Button,
-  Platform,
-} from 'react-native';
+import {StyleSheet, Text, TextInput, View, Platform} from 'react-native';
 import firebase from '@react-native-firebase/app';
 import '@react-native-firebase/auth';
 import analytics from '@react-native-firebase/analytics';
@@ -16,19 +9,9 @@ import {AccessToken, LoginManager, LoginButton} from 'react-native-fbsdk';
 import styled, {ThemeProvider} from 'styled-components';
 import basic from './theme/basic';
 import light from './theme/light';
+import * as Animatable from 'react-native-animatable';
+import {Button} from '@ui-kitten/components';
 
-const StyledBtn = styled.TouchableHighlight`
-  background-color: ${props => props.theme.btnDark};
-  padding: 10px;
-  border-radius: 20px;
-  display: flex;
-  width: 100%;
-  color: #fff;
-`;
-const StyledText = styled.Text`
-  color: ${props => props.theme.color};
-  align-self: center;
-`;
 amplitude.getInstance().init('fce09f2307caa48fe7625001887970e9');
 // bundle com.heebeancreative.whatthetodo
 // sku WTD
@@ -126,46 +109,44 @@ export default class Login extends React.Component {
   render() {
     console.log(this);
     return (
-      <ThemeProvider theme={basic}>
-        <ThemeProvider theme={light}>
-          <View style={styles.container}>
-            <Text>Login</Text>
-            {this.state.errorMessage && (
-              <Text style={{color: 'red'}}>{this.state.errorMessage}</Text>
-            )}
-            <TextInput
-              autoCapitalize="none"
-              placeholder="Email"
-              onChangeText={email => this.setState({email})}
-              value={this.state.email}
-            />
-            <TextInput
-              secureTextEntry
-              autoCapitalize="none"
-              placeholder="Password"
-              onChangeText={password => this.setState({password})}
-              value={this.state.password}
-            />
-            <StyledBtn onPress={this.handleLogin} title="Login">
-              <StyledText>Login</StyledText>
-            </StyledBtn>
-            {/* <Button title="Login" onPress={this.handleLogin} /> */}
-            <Button
-              title="Login with facebook"
-              onPress={this.loginWithFacebook}
-            />
+      <View style={styles.container}>
+        <Animatable.Text
+          animation="slideInDown"
+          iterationCount="infinite"
+          direction="alternate">
+          Up and down you go
+        </Animatable.Text>
+        {this.state.errorMessage && (
+          <Text style={{color: 'red'}}>{this.state.errorMessage}</Text>
+        )}
+        <TextInput
+          autoCapitalize="none"
+          placeholder="Email"
+          onChangeText={email => this.setState({email})}
+          value={this.state.email}
+        />
+        <TextInput
+          secureTextEntry
+          autoCapitalize="none"
+          placeholder="Password"
+          onChangeText={password => this.setState({password})}
+          value={this.state.password}
+        />
+        <Button onPress={this.handleLogin}>Login</Button>
+        <Button onPress={this.loginWithFacebook}>Login with facebook</Button>
 
-            <Button
-              title="Don't have an account? Sign Up"
-              onPress={() => this.props.navigation.navigate('SignUp')}
-            />
-          </View>
-        </ThemeProvider>
-      </ThemeProvider>
+        <Button onPress={() => this.props.navigation.navigate('SignUp')}>
+          Don't have an account? Sign Up
+        </Button>
+        <Button>왓더투두</Button>
+      </View>
     );
   }
 }
 const styles = StyleSheet.create({
+  customfonts: {
+    fontSize: 50,
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
