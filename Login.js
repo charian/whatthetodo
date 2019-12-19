@@ -132,13 +132,16 @@ export default class Login extends React.Component {
           onChangeText={password => this.setState({password})}
           value={this.state.password}
         />
-        <Button onPress={this.handleLogin}>Login</Button>
+        <Button onPress={this.handleLogin} status="info">
+          Login
+        </Button>
         <Button onPress={this.loginWithFacebook}>Login with facebook</Button>
 
-        <Button onPress={() => this.props.navigation.navigate('SignUp')}>
+        <Button
+          onPress={() => this.props.navigation.navigate('SignUp')}
+          appearance="ghost">
           Don't have an account? Sign Up
         </Button>
-        <Button>왓더투두</Button>
       </View>
     );
   }

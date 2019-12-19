@@ -10,8 +10,9 @@ import {createStackNavigator} from 'react-navigation-stack';
 import createAnimatedSwitchNavigator from 'react-navigation-animated-switch';
 
 import {ApplicationProvider} from '@ui-kitten/components';
-import {mapping, light as theme} from '@eva-design/eva';
+import {mapping, dark as darkTheme} from '@eva-design/eva';
 import {default as customMapping} from './custom-mapping.json';
+import {default as appTheme} from './theme/custom-theme.json'; // <-- Import app theme
 
 const App = createAnimatedSwitchNavigator(
   {
@@ -25,7 +26,7 @@ const App = createAnimatedSwitchNavigator(
   },
 );
 const AppContainer = createAppContainer(App);
-
+const theme = {...darkTheme, ...appTheme};
 export default () => (
   <ApplicationProvider
     mapping={mapping}
