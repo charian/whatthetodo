@@ -6,11 +6,10 @@ import '@react-native-firebase/auth';
 import analytics from '@react-native-firebase/analytics';
 import amplitude from 'amplitude-js';
 import {AccessToken, LoginManager, LoginButton} from 'react-native-fbsdk';
-import styled, {ThemeProvider} from 'styled-components';
-import basic from './theme/basic';
-import light from './theme/light';
+
 import * as Animatable from 'react-native-animatable';
-import {Button} from '@ui-kitten/components';
+
+import {Button, Input} from '@ui-kitten/components';
 
 amplitude.getInstance().init('fce09f2307caa48fe7625001887970e9');
 // bundle com.heebeancreative.whatthetodo
@@ -113,34 +112,65 @@ export default class Login extends React.Component {
         <Animatable.Text
           animation="slideInDown"
           iterationCount="infinite"
-          direction="alternate">
+          direction="alternate"
+          style={{fontFamily: 'NanumSquareRoundEB'}}>
           Up and down you go
         </Animatable.Text>
         {this.state.errorMessage && (
           <Text style={{color: 'red'}}>{this.state.errorMessage}</Text>
         )}
-        <TextInput
+        <Input
+          placeholder="Your Email"
+          onChangeText={email => this.setState({email})}
+          value={this.state.email}
+          size="large"
+          style={{borderRadius: 30}}
+        />
+        <Input
+          placeholder="Your Password"
+          onChangeText={password => this.setState({password})}
+          value={this.state.password}
+          size="large"
+          style={{borderRadius: 30, fontFamily: 'NanumSquareRoundEB'}}
+        />
+        {/* <TextInput
           autoCapitalize="none"
           placeholder="Email"
           onChangeText={email => this.setState({email})}
           value={this.state.email}
-        />
-        <TextInput
+        /> */}
+        {/* <TextInput
           secureTextEntry
           autoCapitalize="none"
           placeholder="Password"
           onChangeText={password => this.setState({password})}
           value={this.state.password}
-        />
-        <Button onPress={this.handleLogin} status="info">
-          Login
+        /> */}
+        <Button
+          onPress={this.handleLogin}
+          status="info"
+          size="large"
+          style={{
+            borderRadius: 30,
+            width: '100%',
+          }}>
+          Sign In
         </Button>
-        <Button onPress={this.loginWithFacebook}>Login with facebook</Button>
-
+        <Button
+          onPress={this.loginWithFacebook}
+          style={{
+            borderRadius: 30,
+          }}>
+          Login with facebook
+        </Button>
+        <Text style={{fontFamily: 'NanumSquareRoundEB'}}>
+          Didn’t have email account yet?
+        </Text>
         <Button
           onPress={() => this.props.navigation.navigate('SignUp')}
+          status="info"
           appearance="ghost">
-          Don't have an account? Sign Up
+          Email Sign Up
         </Button>
       </View>
     );
@@ -154,6 +184,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    paddingHorizontal: 50,
   },
 });

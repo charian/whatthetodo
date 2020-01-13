@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, Text, ActivityIndicator, StyleSheet} from 'react-native';
 import firebase from '@react-native-firebase/app';
 import '@react-native-firebase/auth';
@@ -6,27 +6,47 @@ import analytics from '@react-native-firebase/analytics';
 
 //import auth from '@react-native-firebase/auth';
 
-export default class Loading extends React.Component {
-  componentDidMount = async () => {
-    console.log('loading page');
-    await analytics().setCurrentScreen('screen-loading');
+const Loading = props => {
+  useEffect(() => {
+    console.log(props);
+    console.log('Loading');
+    analytics().setCurrentScreen('screen-loading');
     firebase.auth().onAuthStateChanged(user => {
-      this.props.navigation.navigate(user ? 'Main' : 'Login');
+      props.navigation.navigate(user ? 'Main' : 'Login');
     });
-  };
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Loading</Text>
-        <ActivityIndicator size="large" />
-      </View>
-    );
-  }
-}
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
+  }, []);
+
+  return (
+    <View>
+      <Text>Loading</Text>
+    </View>
+  );
+};
+
+export default Loading;
+
+// export default class Loading extends React.Component {
+//   componentDidMount = async () => {
+//     console.log('loading page');
+//     console.log(this.props);
+//     await analytics().setCurrentScreen('screen-loading');
+//     firebase.auth().onAuthStateChanged(user => {
+//       this.props.navigation.navigate(user ? 'Main' : 'Login');
+//     });
+//   };
+//   render() {
+//     return (
+//       <View style={styles.container}>
+//         <Text>Loading</Text>
+//         <ActivityIndicator size="large" />
+//       </View>
+//     );
+//   }
+// }
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//   },
+// });

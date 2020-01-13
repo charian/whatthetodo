@@ -3,7 +3,7 @@
   "text-alternate-color": "$color-basic-100",
   "text-control-color": "$color-basic-100",
   "text-disabled-color": "$color-basic-500",
-  "text-hint-color": "$color-basic-700",
+  "text-hint-color": "#C2C2C2",
   "color-primary-100": "#DEFDF3",
   "color-primary-200": "#BEFBEC",
   "color-primary-300": "#9BF4E6",
