@@ -34,9 +34,9 @@ export default () => (
     theme={theme}
     customMapping={customMapping}>
     <AppContainer
-      ref={nav => {
-        this.navigator = nav;
-      }}
+    //   ref={nav => {
+    //     this.navigator = nav;
+    //   }}
     />
   </ApplicationProvider>
 );
