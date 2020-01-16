@@ -17,11 +17,17 @@ const Login = props => {
   const [email, setEmail] = useState('');
 
   useEffect(() => {
-    async function firebaseInit() {
-      await analytics().setCurrentScreen('screen-login', 'screen-login');
-    }
+    trackScreenView('screen-login');
+    // async function firebaseInit() {
+    //   await analytics().setCurrentScreen('screen-login', 'screen-login');
+    // }
     amplitude.getInstance().init('fce09f2307caa48fe7625001887970e9');
   }, []);
+
+  async function trackScreenView(screen) {
+    // Set & override the MainActivity screen name
+    await analytics().setCurrentScreen(screen, screen);
+  }
 
   async function handleLogin() {
     console.log(email);
@@ -46,13 +52,11 @@ const Login = props => {
       if (result.isCancelled) {
         // handle this however suites the flow of your app
         //throw new Error('User cancelled request');
-        await firebase
-          .analytics()
-          .logEvent('login_cancell', {method: 'facebook'});
+        await analytics().logEvent('login_cancell', {method: 'facebook'});
         alert('Login was cancelled');
         //console.log('user has cancelled' + result.isCancelled);
       } else if (result.isCancelled === false) {
-        await firebase.analytics().logLogin({
+        await analytics().logLogin({
           method: 'facebook',
         });
         amplitude.getInstance().logEvent('login');
@@ -135,7 +139,7 @@ const Login = props => {
         Didn’t have email account yet?
       </Text>
       <Button
-        onPress={() => this.props.navigation.navigate('SignUp')}
+        onPress={() => props.navigation.navigate('SignUp')}
         status="info"
         appearance="ghost">
         Email Sign Up

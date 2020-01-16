@@ -9,8 +9,8 @@ import analytics from '@react-native-firebase/analytics';
 const Loading = props => {
   useEffect(() => {
     console.log('Loading');
-    console.log(firebase.auth());
-    analytics().setCurrentScreen('screen-loading');
+    console.log(props);
+    analytics().setCurrentScreen('screen-loading', 'screen-loading');
     firebase.auth().onAuthStateChanged(user => {
       props.navigation.navigate(user ? 'Main' : 'Login');
     });
